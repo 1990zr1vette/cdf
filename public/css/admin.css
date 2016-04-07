@@ -1,0 +1,375 @@
+
+@import url('http://fonts.googleapis.com/css?family=Pacifico');
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+html, body
+{
+	width:100%;
+	overflow-x:hidden;
+	margin:0;
+	padding:0;
+	font-family:Lato;
+	color:#273543;
+	background-color:#ebebeb;	
+}
+
+header
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:47px;
+	width:100%;
+	background: rgba(0, 0, 0, 0) url("../images/toprow.png") repeat-x scroll left top;	
+}
+
+main
+{
+	position:absolute;
+	top:100px;
+	left:0px;
+	width:100%;	
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	width:100%;
+	text-align:center;
+	margin:0;
+	padding:0;	
+}
+
+ul
+{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+li
+{
+	float:left;
+	text-align:center;
+}
+
+a
+{
+	text-decoration:none;
+	color:rgb(231, 147, 26);
+}
+
+a:hover
+{
+	text-decoration:none;
+	color:#fff;
+}
+
+header nav ul
+{
+	height:47px;
+	line-height:47px;
+	text-transform:uppercase;
+	background: rgba(0, 0, 0, 0) url("../images/sep-1.png") no-repeat scroll right center;
+}
+
+header nav ul li
+{
+	height:47px;
+	line-height:47px;
+	text-transform:uppercase;
+	background: rgba(0, 0, 0, 0) url("../images/sep-1.png") no-repeat scroll right center;
+}
+
+form
+{
+	margin:0 auto;
+	border:1px solid #cfcfcf;
+	border-radius:15px;
+	background-color:#fff;
+}
+
+form.noclass
+{
+	height:50px;
+	width:15%;
+	margin:0;
+	padding:0;
+	border:none;
+	border-radius:15px;
+	background-color:none;
+	float:right;
+}
+
+fieldset
+{
+	width:80%;
+	border:1px solid #cfcfcf; 
+	border-radius:15px; 
+	background-color:#fff;
+	margin:0 auto;
+	padding:0;
+	margin-top:40px;
+}
+
+legend
+{
+	position:relative;
+	top:-10px;
+	height:30px;
+	line-height:30px;
+	background-color:#fff;
+	padding-left:20px;
+	padding-right:20px;
+	border:1px solid #cfcfcf;
+	border-bottom:none;
+	border-radius:5px;
+	line-height:20px;
+	font-size:16px;
+	font-weight:600;
+}
+
+.form60
+{
+	width:60%;
+	margin:0 auto;
+}
+
+.form80
+{
+	width:80%;
+	margin:0 auto;
+}
+
+div.formrow
+{
+	height:50px;
+	width:100%;
+	line-height:50px;
+}
+
+div.formrow label
+{
+	display:inline-block;
+	width:15%;
+	text-align:right;
+	margin-right:10px;
+}
+
+div.formrow input
+{
+	height:25px;
+	width:80%;
+}
+
+div.button
+{
+	height:50px;
+	width:100%;
+	line-height:50px;
+	text-align:center;
+}
+
+div.formtextarea
+{
+	height:300px;
+	width:100%;
+}
+
+div.formtextarea label
+{
+	display:inline-block;
+	width:15%;
+	text-align:right;
+	vertical-align:top;
+}
+
+div.formtextarea textarea
+{
+	height:280px;
+	width:80%;
+}
+
+div.fieldsetrow
+{
+	height:50px;
+	width:95%;
+	line-height:50px;
+	margin:0 auto;
+	font-size:20px;
+	font-weight:600;
+}
+
+div.fieldsetrow span.button
+{
+	width:15%;
+	float:right;
+	text-align:right;
+}
+
+div.fieldsetrow span.button button
+{
+	position:relative;
+	top:-4px;
+}
+
+div.productrow
+{
+	height:50px;
+	width:80%;
+	line-height:50px;
+	margin:0 auto;
+	font-size:20px;
+	font-weight:600;
+	border:1px solid #cfcfcf;
+	border-radius:10px;
+	margin-top:10px;
+	padding-left:20px;
+	padding-right:20px;
+	background-color:#fff;
+}
+
+div.productrow.row60
+{
+	width:60%;
+}
+
+div.productrow.row80
+{
+	width:80%;
+}
+
+div.productrow span
+{
+	display:inline-block;
+	height:100%;
+	line-height:50px;
+}
+
+div.productrow span.button
+{
+	width:15%;
+	float:right;
+	text-align:right;
+}
+
+div.productrow span.button button
+{
+	position:relative;
+	top:-4px;
+}
+
+div.formtextarearow
+{
+	height:500px;
+	width:100%;
+}
+
+div.formtextarearow label
+{
+	display:inline-block;
+	width:15%;
+    margin-right:10px;
+    text-align:right;
+	vertical-align:top;
+}
+
+div.formtextarearow textarea
+{
+	height:90%;
+	width:80%;
+}
+
+div.formimagerow
+{
+	height:50px;
+	width:100%;
+}
+
+div.formimagerow.edit
+{
+	height:250px;
+}
+
+div.formimagerow.edit input[type=file]
+{
+	vertical-align:top;
+}
+
+div.formimagerow.edit img
+{
+	height:250px;
+	width:400px;
+	float:right;
+	margin-right:20px;
+}
+
+div.formimagerow label
+{
+	display:inline-block;
+	width:15%;
+    margin-right:10px;
+    text-align:right;
+}
+
+div.formimagerow input
+{
+	display:inline-block;
+	width:70%;
+	text-align:left;
+}
+
+div.formimagerow button
+{
+	position:absolute;
+}
+
+form input[type=submit]
+{
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;	
+}
+
+.btn 
+{
+	-moz-user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.42857;
+	margin-bottom: 0;
+	padding: 6px 12px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.btn-primary 
+{
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #ffffff;
+}
+
+.formrow.select
+{
+	text-align:center;
+}
+
+.spacer10{height:10px;width:100%;}
+.spacer20{height:20px;width:100%;}
