@@ -23,7 +23,8 @@ class BrandController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin/brands/brands')->with('brands',Brand::all());
+		return view('admin/brands/brands')
+			->with('brands',Brand::all());
 	}
 
 	/**
@@ -43,27 +44,7 @@ class BrandController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$moveTo = base_path() . '/public/images/';				  
-		$imageName = Input::file('image')->getClientOriginalName();
-		
-		$Brand = new Brand(		
-			array('brand' 	 => $request->get('brand'), 
-				  'about' 	 => $request->get('about'),
-				  'about_fr' => $request->get('about_fr'), 				  
-				  'image' 	 => $imageName)
-		);
-		
-		if ($request->file('image')->move($moveTo, $imageName))
-		{
-			if ($Brand->save())
-				echo '1';
-			else
-				echo '0';
-		}
-		else 
-		{
-			echo '-1';
-		}
+		return $this->newRecord('Brand', $request, true, ADMIN . 'brands');
 	}
 
 	/**
@@ -85,7 +66,8 @@ class BrandController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('admin/brands/brand')
+			->with('Brand', Brand::find($id));
 	}
 
 	/**
@@ -94,9 +76,9 @@ class BrandController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+		return $this->updateRecord('Brand', $request, $id, ADMIN . 'brands');
 	}
 
 	/**

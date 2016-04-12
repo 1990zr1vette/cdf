@@ -8,18 +8,17 @@ use Illuminate\Http\Request;
 
 use \App\Models\Product;
 use \App\Models\Type;
+use \App\Models\Inventory;
 
 use Session;
 use Input;
 
 class ProductController extends Controller {
 
-	//protected $request;
 
-	//public function __construct(Request $request)
+	//public function __construct()
 	//{
 		//$this->middleware('auth');
-		//$this->request = $request;
 	//}
 
 	/**
@@ -50,10 +49,8 @@ class ProductController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		if (Product::create($request->all()))
-			echo '1';
-		else
-			echo '0';		
+		Product::create($request->all());
+		return redirect(ADMIN . 'products');
 	}
 
 	/**
@@ -87,8 +84,9 @@ class ProductController extends Controller {
 	 */
 	public function update($id)
 	{
-		$product = Product::findOrFail($id);		 
-		echo $product->fill(Input::all())->save(); 
+		$Product = Product::findOrFail($id);		 
+		$Product->fill(Input::all())->save(); 
+		return redirect(ADMIN . 'products');
 	}
 
 	/**
@@ -101,72 +99,6 @@ class ProductController extends Controller {
 	{
 		//
 	}
-	
-	// ******************** GET PRODUCTS BY PRODUCT ID ******************** //
-	public function products($product, $id)
-	{
-		Session::put('lang','EN');
-		return $this->productsBlade($id);
-	}
-	
-	public function produits($product, $id)
-	{
-		Session::put('lang','FR');
-		return $this->productsBlade($id);
-	}
-	
-	public function productsBlade($id)
-	{
-		$Product = Product::findOrFail($id);
-		
-		$url_ol = languages('produits/' . 
-		                    fixSegment($Product->product_fr) . '/' .
-							$Product->id, 
-							'products/' . 
-							fixSegment($Product->product) . '/' .
-							$Product->id);
-		
-		return view('products/products')
-			->with('Product',$Product)
-			->with('description',$Product->description)
-			->with('keywords',$Product->keywords)
-			->with('urlol', $url_ol);
-			
-	}
-	// ******************** GET PRODUCTS BY PRODUCT ID ******************** //
-
-	public function entypes($product_name, $type_name, $product_id, $type_id)
-	{
-		Session::put('lang','EN');
-		return $this->typesBlade($product_name, $type_name, $product_id, $type_id);
-	}
-	
-	public function frtypes($product_name, $type_name, $product_id, $type_id)
-	{
-		Session::put('lang','FR');
-		return $this->typesBlade($product_name, $type_name, $product_id, $type_id);
-	}
-	
-	public function typesBlade($product_name, $type_name, $product_id, $type_id)
-	{
-		$Product = Product::findOrFail($product_id);
-		$Type = Type::findOrFail($type_id);
-		
-		$url_ol = languages('produits/', 'products/') . 
-				  fixSegment($Product->product_fr, $Product->product)  . '/' .
-				  fixSegment($Type->type_fr, $Type->type) . '/' . 
-				  $Product->id  . '/' .
-				  $Type->id;
-				  
-		return view('products/types')
-			->with('description',$Product->description)
-			->with('keywords',$Product->keywords)
-			->with('urlol', $url_ol)		
-			->with('Product',$Product)
-			->with('Type',$Type);
-	}
-	
-	
 	
 
 }

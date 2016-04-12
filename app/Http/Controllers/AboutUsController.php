@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use \App\Models\Team;
+
 use Session;
 
 class AboutUsController extends Controller {
@@ -151,4 +153,50 @@ class AboutUsController extends Controller {
 			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/culture');
 	}	
 	// ****************************** EXPERIENCE ****************************** //
+	
+	// ****************************** TEAM ****************************** //
+	public function team()
+	{
+		Session::put('lang','EN');
+		return $this->teamblade();		
+	}
+
+	public function teamfr()
+	{
+		Session::put('lang','FR');
+		return $this->teamblade();		
+	}
+	
+	public function teamblade()
+	{
+		return view('aboutus/team')
+			->with('description','')
+			->with('keywords','')
+			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/' . languages(TEAM_FR, TEAM))
+			->with('Members', Team::where('active', 1)->get());
+	}	
+	// ****************************** TEAM ****************************** //	
+	
+	// ****************************** STUDIO AND SERVICES ****************************** //		
+	public function services()
+	{
+		Session::put('lang','EN');
+		return $this->servicesblade();		
+	}
+
+	public function servicesfr()
+	{
+		Session::put('lang','FR');
+		return $this->servicesblade();		
+	}
+	
+	public function servicesblade()
+	{
+		return view('aboutus/services')
+			->with('description','')
+			->with('keywords','')
+			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/' . 
+			                languages(STUDIOSRERVICES_FR, STUDIOSRERVICES));
+	}	
+	// ****************************** STUDIO AND SERVICES ****************************** //	
 }

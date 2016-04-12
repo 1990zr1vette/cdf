@@ -23,6 +23,11 @@
 					{!! Form::textarea('about_fr') !!}
 				</div>
 				
+				<div class="formrow">
+					{!! Form::label('website', 'WEBSITE:') !!}
+					{!! Form::text('website') !!}
+				</div>				
+				
 				<div class="formimagerow">
 					{!! Form::label('image', 'LOGO:') !!}
 					{!! Form::file('image') !!}
@@ -46,7 +51,7 @@
 				$('#image').css('height', $('#imagebutton').height() + parseInt( $('#imagebutton').css('padding-bottom').replace('px','') ) + parseInt( $('#imagebutton').css('padding-top').replace('px','') ) + 2);
 				$('#image').css('width', $('#imagebutton').width() + parseInt( $('#imagebutton').css('padding-left').replace('px','') ) + parseInt( $('#imagebutton').css('padding-right').replace('px','') ) + 2);
 				$('#imagebutton').click(function(){$('#image').click();});				
-				$(document).ready(function(){$('#ajaxform').ajaxForm(function(response){if (response == '1') window.location = 'admin/brands'; else alert('There was a problem');}); }); 
+				//$(document).ready(function(){$('#ajaxform').ajaxForm(function(response){if (response == '1') window.location = 'admin/brands'; else alert('There was a problem');}); }); 
 			</script> 	
 
 @endsection

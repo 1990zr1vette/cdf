@@ -5,19 +5,17 @@
 			<div id="banner">
 				<img src="images/cdf-banners-about_culture.jpg" />
 				<div class="banner_overlay"></div>
-				<h1 class="culturetitle" style="position:relative; z-index:3; color:#fff;">Culture & Quality</h1>
+				<h1 class="upper" id="bannertitle">Culture & Quality</h1>
 			</div>
 			
-			<script>
-				$('.culturetitle').css('top','-' + (($('#banner').height() + $('.culturetitle').height()) / 2) + 'px');
-			</script>
+			<script src="js/banner.js" type="text/javascript"></script>			
 			
-			<div class="spacer40"></div>
+			<div class="spacer20"></div>
 			
 			<div class="culture_item" id="weareknown">
 				
 				<div class="culture_image">
-					<img style="width:600px; height:390px;" src="images/We-are-known-as-CDFAudio1.jpg" />
+					<img src="images/We-are-known-as-CDFAudio1.jpg" />
 				</div>
 				
 				<div class="culture_info" style="">
@@ -89,91 +87,51 @@ Vous pouvez compter sur l’expertise de nos conseillers, qui vous aideront à c
 				var viewport = {top:win.scrollTop(),left:win.scrollLeft()};
 				viewport.right = viewport.left + win.width();
 				viewport.bottom = viewport.top + win.height();
-
 				var bounds = this.offset();
 				bounds.right = bounds.left + this.outerWidth();
 				bounds.bottom = bounds.top + this.outerHeight();
-
 				return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
 			};
 			
-			//alert( $('.culture_info').eq(0).position().left );
-			
 			$.each($('.culture_item'),function(){
-				
 				var culture_image = $(this).find('.culture_image');				
 				$(culture_image).css('left','-' + ($(culture_image).width()) + 'px');
 				$(culture_image).attr('data-left',$(culture_image).position().left);
-				
 				var culture_info = $(this).find('.culture_info');
 				$(culture_info).css('left', $(this).width() - $(culture_info).width() - 100 );
 				$(culture_info).attr('data-left', $(culture_info).position().left );				
-				
 				$(this).attr('data-on-screen','0');
-				
 			});
 			
 			checkItems();
 			
-			$(document).ready(function(){ 
-				
-				
-				
-				$(window).scroll(function(){
-					
-					checkItems();
-					
-				});
-				
-			});
+			$(document).ready(function(){$(window).scroll(function(){checkItems();});});
 			
 			function checkItems()
 			{
-				
 				$.each($('.culture_item'),function(index){
-					
 					if ($(this).isOnScreen())
 					{
-						
 						if ( $(this).attr('data-on-screen') == '0' )
 						{
 							$(this).attr('data-on-screen','1');
-							
 							$(this).find('.culture_image').animate({opacity:1,left:20},1000);
 							$(this).find('.culture_info').animate({opacity:1,left:20},1000);
-							
-							//var culture_info = 	$(this).find('.culture_info');
-							
-							//alert( $(culture_info).attr('data-left') );
-							
-							//$(culture_info).animate({opacity:1,left: parseInt($(culture_info).attr('data-left')) },1000);
 						}
-								
 					}
 					else
 					{
-							
 						if ( $(this).attr('data-on-screen') == '1' )
 						{
 							$(this).attr('data-on-screen','0');
-
 							var culture_image = $(this).find('.culture_image');
 							$(culture_image).css('opacity',0).css('left',parseInt($(culture_image).attr('data-left')));
-							
 							var culture_info = $(this).find('.culture_info');
 							$(culture_info).css('opacity',0).css('left',parseInt($(culture_info).attr('data-left')));
-							
 						}
-								
 					}
-					
 				});
-					
 			}
 		</script>
 		
 @endsection
-
-
-		
-		

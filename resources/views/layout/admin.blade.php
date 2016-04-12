@@ -39,8 +39,17 @@
 						<a href="admin/products">PRODUCTS</a>
 					</li>
 					<li>
-						<a href="admin/inventory">Inventory</a>
+						<a href="admin/announcements">ANNOUNCEMENTS</a>
+					</li>
+					<li>
+						<a href="admin/events">EVENTS</a>
 					</li>					
+					<li>
+						<a href="admin/editorials">EDITORIALS</a>
+					</li>
+					<li>
+						<a href="admin/team">TEAM</a>
+					</li>
 				</ul>
 			</nav>
 		</header>

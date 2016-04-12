@@ -14,8 +14,8 @@
 	},
 	"autoload": {
 		"files": [
-			"app/Constants/constants.php",
-			"app/Helpers/helper.php"
+			"app/Helpers/helper.php",
+			"app/Constants/constants.php"
         ],
 		"classmap": [
 			"database"

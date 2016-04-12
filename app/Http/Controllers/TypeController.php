@@ -14,12 +14,9 @@ use Input;
 class TypeController extends Controller 
 {
 
-	//protected $request;
-
-	//public function __construct(Request $request)
+	//public function __construct()
 	//{
 		//$this->middleware('auth');
-		//$this->request = $request;
 	//}
 	
 	/**
@@ -53,10 +50,9 @@ class TypeController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		if (Type::create($request->all()))
-			echo '1';
-		else
-			echo '0';
+		$referer = $_SERVER['HTTP_REFERER'];
+		Type::create($request->all());
+		return redirect(str_replace('/create', '', $referer));
 	}
 
 	/**

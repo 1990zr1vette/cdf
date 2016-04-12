@@ -3,11 +3,12 @@ namespace App\Http\Controllers;
 
 use \App\Models\Product;
 use \App\Models\Brand;
+use \App\Models\Editorial;
+use \App\Models\Event;
 
 use Session;
 
-class HomeController extends Controller 
-{
+class HomeController extends Controller {
 
 	protected $urlol;
 	
@@ -23,16 +24,6 @@ class HomeController extends Controller
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	//public function __construct()
-	//{
-		//$this->middleware('auth');
-	//}
-
-	/**
 	 * Show the application dashboard to the user.
 	 *
 	 * @return Response
@@ -43,6 +34,8 @@ class HomeController extends Controller
 			->with('description','')
 			->with('keywords','')
 			->with('urlol', $this->urlol)
+			->with('Editorial',Editorial::where('current',1)->first())
+			->with('Event',Event::where('current',1)->first())
 			->with('Brands',Brand::where('active',1)->get());
 	}
 	

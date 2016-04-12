@@ -3,6 +3,7 @@
 //Event::listen('illuminate.query', function($sql)
 //{
 	//echo $sql . '<br>';
+	//die();
    // dd([
    //     $query,  // prepared statement
     //    $params, // query params (? symbols will be replaced with)
@@ -22,10 +23,6 @@
 */
 
 // ****************************** ADMIN ****************************** //
-Route::resource('admin/inventory', 'InventoryController');
-
-Route::resource('admin/admin', 'AdminController');
-
 Route::resource('admin/brands', 'BrandController');
 Route::resource('admin/brandproducts', 'BrandProductController');
 Route::resource('admin/brands.products', 'BrandProductController');
@@ -36,6 +33,15 @@ Route::resource('admin/products.types', 'TypeController');
 
 Route::resource('admin/brands.products.inventory', 'InventoryController');
 Route::resource('admin/inventory', 'InventoryController');
+
+Route::resource('admin/announcements', 'AnnouncementController');
+Route::resource('admin/events', 'EventController');
+Route::resource('admin/editorials', 'EditorialController');
+Route::get('admin/editorials/updateCurrent/{id}', 'EditorialController@updateCurrent');
+
+Route::resource('admin/team', 'TeamController');
+
+Route::resource('admin', 'AdminController');
 // ****************************** ADMIN ****************************** //
 
 
@@ -53,9 +59,37 @@ Route::get(ABOUTUS . '/' . CULTURE, 'AboutUsController@culture');
 Route::get(ABOUTUS_FR . '/' . CULTURE, 'AboutUsController@culturefr');
 
 Route::get(ABOUTUS . '/' . EXPERIENCE, 'AboutUsController@experience');
-Route::get(ABOUTUS_FR . '/' . EXPERIENCE_FR, 'AboutUsController@experiencefr');
+Route::get(ABOUTUS_FR . '/' . replaceAccents(EXPERIENCE_FR), 'AboutUsController@experiencefr');
 
+Route::get(ABOUTUS . '/' . STUDIOSRERVICES, 'AboutUsController@services');
+Route::get(ABOUTUS_FR . '/' . replaceAccents(STUDIOSRERVICES_FR), 'AboutUsController@servicesfr');
+
+Route::get(ABOUTUS . '/' . TEAM, 'AboutUsController@team');
+Route::get(ABOUTUS_FR . '/' . replaceAccents(TEAM_FR), 'AboutUsController@teamfr');
 // ****************************** ABOUT US ****************************** //
+
+// ****************************** JOURNAL ****************************** //
+Route::get(JOURNAL, 'JournalController@journal');
+Route::get(JOURNAL_FR, 'JournalController@journalfr');
+
+Route::get(ANNOUNCEMENTS, 'AnnouncementController@announcements');
+Route::get(replaceAccents(ANNOUNCEMENTS_FR), 'AnnouncementController@announcementsfr');
+
+Route::get(rtrim(ANNOUNCEMENTS, 's') . '/{id}', 'AnnouncementController@announcement');
+Route::get(rtrim(replaceAccents(ANNOUNCEMENTS_FR), 's') . '/{id}', 'AnnouncementController@announcementfr');
+
+Route::get(EDITORIALS, 'EditorialController@editorials');
+Route::get(replaceAccents(EDITORIALS_FR), 'EditorialController@editorialsfr');
+
+Route::get(rtrim(EDITORIALS, 's') . '/{id}', 'EditorialController@editorial');
+Route::get(rtrim(replaceAccents(EDITORIALS_FR), 's') . '/{id}', 'EditorialController@editorialfr');
+
+Route::get(EVENTS, 'EventController@events');
+Route::get(replaceAccents(EVENTS_FR), 'EventController@eventsfr');
+
+Route::get(rtrim(EVENTS, 's') . '/{id}', 'EventController@event');
+Route::get(rtrim(replaceAccents(EVENTS_FR), 's') . '/{id}', 'EventController@eventfr');
+// ****************************** JOURNAL ****************************** //
 
 // ****************************** BRANDS ****************************** //
 Route::get('brands', 'BrandController@brands');
@@ -69,12 +103,18 @@ Route::get('marques/{brand}/{product}/{brand_id}/{product_id}', 'BrandController
 // ****************************** BRANDS ****************************** //
 
 // ****************************** PRODUCTS ****************************** //
-Route::get('products/{product}/{id}', 'ProductController@products');
-Route::get('produits/{product}/{id}', 'ProductController@produits');
+Route::get('products/{product}/{product_id}', 'InventoryController@products');
+Route::get('produits/{product}/{product_id}', 'InventoryController@produits');
 
+Route::get('products/{product}/{type}/{product_id}/{type_id}', 'InventoryController@typesen');
+Route::get('produits/{product}/{type}/{product_id}/{type_id}', 'InventoryController@typesfr');
 
-Route::get('products/{product}/{type}/{pid}/{tid}', 'ProductController@entypes');
-Route::get('produits/{product}/{type}/{pid}/{tid}', 'ProductController@frtypes');
+Route::get('products/{product}/{product_id}/brand/{brand}/{brand_id}', 'InventoryController@products');
+Route::get('produits/{product}/{product_id}/marque/{brand}/{brand_id}', 'InventoryController@produits');
+
+Route::get('products/{product}/{type}/{product_id}/{type_id}/brand/{brand}/{brand_id}', 'InventoryController@typesen');
+Route::get('produits/{product}/{type}/{product_id}/{type_id}/marque/{brand}/{brand_id}', 'InventoryController@typesfr');
+
 // ****************************** PRODUCTS ****************************** //
 
 // ****************************** TEST ****************************** //

@@ -35,3 +35,55 @@ function languages($en, $fr)
 	else
 		return $fr;
 }
+
+function maxLength($length, $en, $fr)
+{
+	if (Session::get('lang') == 'EN')
+	{
+		if (strlen($en) < $length)
+		{
+			return $en;
+		}
+		else
+		{
+			$section1 = substr($en, 0, $length);
+			$section2 = substr($en, $length, strlen($en) - $length); 
+			
+			$return = '<span>' . $section1 . '</span>';
+			$return .= '<a class="moretag" href="javascript:void(0);">&nbsp;[+] MORE&nbsp;</a>';
+			$return .= '<span class="morespan">' . $section2 . '&nbsp;&nbsp;<a class="lesstag" href="javascript:void(0);">[-] Less</a></span>';
+			
+			return $return;
+		}
+	}
+	else
+	{
+		if (strlen(trim($fr)) < $length)
+		{
+			return $fr;
+		}
+		else
+		{
+			return  substr($fr, 0, $length) . '&nbsp;&nbsp;&nbsp;&nbsp;<a class="moretag" href="javascript:void(0);">[+]</a>&nbsp;&nbsp;Plus ';
+		}
+	}
+}
+
+function publishedOn($mysqlDate)
+{
+	$monthsen = array('January', 'February', 'March', 'April', 'May', 'June', 
+					  'July', 'August', 'September', 'October', 'November', 'December');
+	$monthsfr = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+	                  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'); 
+	
+	if (Session::get('lang') == 'FR')
+	{
+		setlocale(LC_TIME, "fr_FR"); 
+		$pubon = 'Publié sur ' . strftime("le %d %B, %Y", strtotime( $mysqlDate ));
+		return str_replace($monthsen, $monthsfr, $pubon);		
+	}
+	else
+	{
+		return 'Published on ' . date('F j, Y', strtotime($mysqlDate));
+	}
+}

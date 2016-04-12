@@ -9,6 +9,11 @@
 				{!! Form::hidden('type_id') !!}
 				
 				<div class="spacer20"></div>
+	
+				<div class="formrow">
+					{!! Form::label('model', 'MODEL:') !!}
+					{!! Form::text('model') !!}
+				</div>
 				
 				<div class="formtextarea">
 					{!! Form::label('description', 'DESCRIPTION:') !!}
@@ -34,7 +39,11 @@
 					<button class="btn btn-primary">UPDATE</button>
 				</div>
 				
+				<div class="spacer20"></div>
+				
 			{!! Form::close() !!}
+			
+			<div class="spacer40"></div>
 			
 			<script> 
 				$('input[type=text]').attr('required',true);
@@ -42,19 +51,8 @@
 				$('#imagebutton').css('left',$('#image').position().left);
 				$('#image').css('height', $('#imagebutton').height() + parseInt( $('#imagebutton').css('padding-bottom').replace('px','') ) + parseInt( $('#imagebutton').css('padding-top').replace('px','') ) + 2);
 				$('#image').css('width', $('#imagebutton').width() + parseInt( $('#imagebutton').css('padding-left').replace('px','') ) + parseInt( $('#imagebutton').css('padding-right').replace('px','') ) + 2);
-				
-				$('#imagebutton').click(function(){
-					$('#image').click();
-				});				
-				
-				$('#image').change(function(){
-					
-					$('#imagename').html($(this)[0].files[0].name);
-					
-				});
-				
-				
-				//$(document).ready(function(){$('#ajaxform').ajaxForm(function(response){if (response == '1') window.location = 'admin/brands'; else alert('There was a problem');}); }); 
+				$('#imagebutton').click(function(){$('#image').click();});								
+				$('#image').change(function(){$('#imagename').html($(this)[0].files[0].name);});
 			</script> 			
 			
 @endsection

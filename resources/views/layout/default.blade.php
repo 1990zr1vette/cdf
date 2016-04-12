@@ -30,9 +30,6 @@ use \App\Models\Type;
 
 		<script src="js/jquery-2.2.0.min.js" type="text/javascript"></script>
 		
-		<script src="js/beaverslider.js"></script>    
-		<script src="js/beaverslider-effects.js"></script>
-		
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -50,22 +47,50 @@ use \App\Models\Type;
 					</li>					
 					<li class="topli">
 						<a href="{{ languages(JOURNAL, JOURNAL_FR) }}">JOURNAL</a>
-					</li>
-					<li class="topli">
-						<a href="{{ languages(ABOUTUS, ABOUTUS_FR) }}">{{ languages('ABOUT US', 'À PROPOS DE NOUS') }}</a>
 						<ul class="submenu">
 							<li>
-								<a href="{{ languages(ABOUTUS, ABOUTUS_FR) }}/{{ languages(CULTURE, CULTURE_FR) }}">
+								<a href="{{ languages(ANNOUNCEMENTSURL, ANNOUNCEMENTSURL_FR) }}">
+									{{ languages(ANNOUNCEMENTS, ANNOUNCEMENTS_FR) }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ languages(EVENTSURL, EVENTSURL_FR) }}">
+									{{ languages(EVENTS, EVENTS_FR) }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ languages(EDITORIALSURL, EDITORIALSURL_FR) }}">
+									{{ languages(EDITORIALS, EDITORIALS_FR) }}
+								</a>
+							</li>							
+
+						</ul>
+					</li>
+					<li class="topli">
+						<a href="{{ languages(ABOUTUS, ABOUTUS_FR) }}">
+							{{ languages('ABOUT US', 'À PROPOS DE NOUS') }}
+						</a>
+						<ul class="submenu">
+							<li>
+								<a href="{{ languages(CULTUREURL, CULTUREURL_FR) }}">
 									{{ languages(CULTURE, CULTURE_FR) }}
 								</a>
 							</li>
 							<li>
-								<a href="{{ languages(ABOUTUS, ABOUTUS_FR) }}/{{ languages(EXPERIENCE, EXPERIENCE_FR) }}">
+								<a href="{{ languages(EXPERIENCEURL, EXPERIENCEURL_FR) }}">
 									{{ languages('Experience','Expérience') }}
 								</a>
 							</li>
-							<li><a href="">{{ languages('Studio and Services','Studio et Services') }}</a></li>
-							<li><a href="">{{ languages('Team','Équipe') }}</a></li>
+							<li>
+								<a href="{{ languages(STUDIOSRERVICESURL, STUDIOSRERVICESURL_FR) }}">
+									{{ languages('Studio and Services','Studio et Services') }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ languages(TEAMURL, TEAMURL_FR) }}">
+									{{ languages('Team','Équipe') }}
+								</a>
+							</li>
 						</ul>
 					</li>
 					<li class="topli">
@@ -76,6 +101,16 @@ use \App\Models\Type;
 					</li>
 				</ul>
 			</nav>
+			
+			<div id="cdf">			
+				<div id="logo"><img src="images/logo.png"></div>				
+				<div id="companyname">Coup de Foudre</div>				
+				<div id="cdfinfo">					
+					<p>6644 Clark</p>					
+					<p>Mtl, Qc H2S-3E7</p>					
+					<p>(514) 788-5066</p>									
+				</div>						
+			</div>
 			
 			<nav id="bottomnav">
 				<ul>
@@ -126,31 +161,69 @@ use \App\Models\Type;
 				
 					<div class="footercolumn">
 						<h3>Coup De Foudre</h3>
-						<span><a href="">Culture</a></span>
-						<span><a href="">Experience</a></span>
-						<span><a href="">Studio & Services</a></span>
-						<span><a href="">Team</a></span>
+						<span>
+							<a href="{{ languages(CULTUREURL, CULTUREURL_FR) }}">
+								Culture
+							</a>
+						</span>
+						<span>
+							<a href="{{ languages(EXPERIENCEURL, EXPERIENCEURL_FR) }}">
+								Experience
+							</a>
+						</span>
+						<span>
+							<a href="{{ languages(STUDIOSRERVICESURL, STUDIOSRERVICESURL_FR) }}">
+								Studio & Services
+							</a>
+						</span>
+						<span>
+							<a href="{{ languages(TEAMURL, TEAMURL_FR) }}">
+								Team
+							</a>
+						</span>
 					</div>
 					
 					<div class="footercolumn">
 						<h3>Products</h3>
 @foreach(Product::where('active',1)->get() as $Product)
-						<span><a href="">{{ languages($Product->product, $Product->product_fr) }}</a></span>
+						<span>
+							<a href="">
+								{{ languages($Product->product, $Product->product_fr) }}
+							</a>
+						</span>
 @endforeach
 					</div>
 					<div class="footercolumn">
 						<h3>Journal</h3>
-						<span><a href="">Announcements</a></span>
-						<span><a href="">Events</a></span>
-						<span><a href="">Editorials</a></span>
+						<span>
+							<a href="{{ languages(ANNOUNCEMENTSURL, ANNOUNCEMENTSURL_FR) }}">
+								{{ languages(ANNOUNCEMENTS, ANNOUNCEMENTS_FR) }}
+							</a>
+						</span>
+						<span>
+							<a href="{{ languages(EVENTSURL, EVENTSURL_FR) }}">
+								{{ languages(EVENTS, EVENTS_FR) }}
+							</a>
+						</span>
+						<span>
+							<a href="{{ languages(EDITORIALSURL, EDITORIALSURL_FR) }}">
+								{{ languages(EDITORIALS, EDITORIALS_FR) }}
+							</a>						
+						</span>
 						<span></span>
 						<h3>Contact Us</h3>
-						<span><a href="">General Inquiry</a></span>
-						<span><a href="">Submit a Review</a></span>
-						<span><a href="">Book a Consultation</a></span>						
+						<span>
+							<a href="">General Inquiry</a>
+						</span>
+						<span>
+							<a href="">Submit a Review</a>
+						</span>
+						<span>
+							<a href="">Book a Consultation</a>
+						</span>
 					</div>
 					<div class="footercolumn">
-						<h3>Find Us</h3>
+						<h3><a id="findusbutton" href="javascript:void(0);">{{ languages('Find Us', 'Nous trouver') }}</a></h3>
 						<span>6644 Clark, Montreal</span>
 						<span>Quebec H2S-3E7</span>
 						<span>514-788-5066</span>						
@@ -189,8 +262,33 @@ use \App\Models\Type;
 			</div>
 		</footer>
 
+		<div id="findus">
+			<div class="close">
+				<span id="close">X</span>
+			</div>
+		</div>
+		
 		<script>
-			$('footer').css('top',$('main').offset().top + $('main').height());
+		
+			$('#findusbutton').click(function(){
+				
+				$('#findus').css('top', $(document).scrollTop() + 100 );
+				
+				$('#findus').fadeIn();
+				
+			});
+
+			$('#close').click(function(){
+				
+				$('#findus').fadeOut();
+			});
+			
+			setFooter();
+			
+			function setFooter()
+			{
+				$('footer').css('top',$('main').offset().top + $('main').height());
+			}
 		</script>
 
 		

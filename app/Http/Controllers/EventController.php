@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use \App\Models\Event;
+
+use Input;
+
+use Session;
+
 class EventController extends Controller {
 
+	private $model = 'Event';
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -15,7 +23,8 @@ class EventController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('admin/events/events')
+			->with('Events', Event::all());
 	}
 
 	/**
@@ -25,7 +34,7 @@ class EventController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('admin/events/addevent');
 	}
 
 	/**
@@ -33,9 +42,9 @@ class EventController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		return $this->newRecord($this->model, $request, true, ADMIN . 'events');
 	}
 
 	/**
@@ -57,7 +66,8 @@ class EventController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('admin/events/event')
+			->with('Event', Event::find($id));
 	}
 
 	/**
@@ -66,9 +76,9 @@ class EventController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+		return $this->updateRecord($this->model, $request, $id, ADMIN . 'events');
 	}
 
 	/**
@@ -81,5 +91,57 @@ class EventController extends Controller {
 	{
 		//
 	}
+	
+		// ****************************** EVENT ****************************** //
+	public function event($id)
+	{
+		Session::put('lang','EN');
+		return $this->eventblade($id);
+	}
+	
+	public function evenement($id)
+	{
+		Session::put('lang','FR');
+		return $this->eventblade($id);
+	}	
+	
+	private function eventblade($id)
+	{
+		$url_ol = languages(JOURNAL_FR, JOURNAL) . '/' . 
+				  languages(rtrim(EVENTS, 's'), rtrim(EVENTS_FR, 's')) . $id;
+		
+		return view('events/event')
+			->with('description', '')
+			->with('keywords', '')
+			->with('urlol', $url_ol)	
+			->with('Event', Event::find($id));
+	}
+	// ****************************** EVENT ****************************** //
+	
+	// ****************************** EVENTS ****************************** //
+	public function events()
+	{
+		Session::put('lang','EN');
+		return $this->eventsblade();		
+	}
+	
+	public function evenements()
+	{
+		Session::put('lang','FR');
+		return $this->eventsblade();				
+	}
+
+	private function eventsblade()
+	{
+		$url_ol = languages(JOURNAL_FR, JOURNAL) . '/' . 
+				  languages(replaceAccents(EVENTS_FR), EVENTS) . '/';
+		
+		return view('events/events')
+			->with('description', '')
+			->with('keywords', '')
+			->with('urlol', $url_ol)	
+			->with('Events', Event::where('active',1)->get());
+	}
+	// ****************************** EVENTS ****************************** //	
 
 }

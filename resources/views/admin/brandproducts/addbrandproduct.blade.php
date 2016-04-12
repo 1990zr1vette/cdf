@@ -16,8 +16,8 @@
 					<label style="margin-right:5px;">PRODUCT: </label>
 					<select id="product_id" name="product_id">
 						<option value="">Choose a Product&nbsp;&nbsp;</option>
-@foreach($products as $product)
-						<option value="{{ $product['id'] }}">{{ $product['product'] }}</option>
+@foreach($Products as $Product)
+						<option value="{{ $Product->id }}">{{ $Product->product }}</option>
 @endforeach
 					</select>
 				</div>				
@@ -30,18 +30,7 @@
 					
 			{!! Form::close() !!}
 	
-			<div class="spacer20"></div>
-	
-			<script> 				
-				$(document).ready(function(){ 
-					$('#ajaxform').ajaxForm(function(response){ 
-						if (response == '1')
-							window.location = '{{ $referer }}';
-						else
-							alert('There was a problem');
-					}); 
-				}); 
-			</script> 	
+			<div class="spacer20"></div> 	
 
 
 @endsection

@@ -7,13 +7,18 @@ use Illuminate\Http\Request;
 
 use \App\Models\Brand;
 use \App\Models\Product;
+use \App\Models\BrandProduct;
 use \App\Models\Type;
 use \App\Models\Inventory;
 
 use Input;
 
+use Session;
+
 class InventoryController extends Controller {
 
+	private $model = 'Inventory';
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -55,26 +60,8 @@ class InventoryController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$redirect = str_replace('/create', '', $_SERVER['HTTP_REFERER']);
-		
-		$moveTo = base_path() . '/public/images/';				  
-		$imageName = Input::file('image')->getClientOriginalName();
-		
-		$Inventory = new Inventory(
-			array('brand_id' 			=> $request->get('brand_id'), 
-				  'product_id' 			=> $request->get('product_id'),
-				  'type_id' 			=> $request->get('type_id'),
-				  'model' 				=> $request->get('model'),
-				  'description' 		=> $request->get('description'),
-				  'description_fr' 		=> $request->get('description_fr'),
-				  'image' 	 			=> $imageName));
-										
-		if ($request->file('image')->move($moveTo, $imageName))
-		{
-			$Inventory->save();
-		}
-		
-		return redirect($redirect);
+		$redirect = str_replace('/create', '', $_SERVER['HTTP_REFERER']);		
+		return $this->newRecord($this->model, $request, true, $redirect);
 	}
 
 	/**
@@ -105,29 +92,11 @@ class InventoryController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($brand_id, $product_id, $id)
+	public function update(Request $request, $brand_id, $product_id, $id)
 	{
 		$redirect = str_replace('/edit', '', $_SERVER['HTTP_REFERER']);
 		$redirect = substr($redirect, 0, strrpos($redirect, '/'));
-
-		$Inventory = Inventory::findOrFail($id);		
-		
-		if (Input::has('image')) 
-		{
-			$image = Input::file('image');
-			$imageName = $image->getClientOriginalName();
-			$moveTo = base_path() . '/public/images/';	
-			
-			if ($request->file('image')->move($moveTo, $imageName))			
-			{
-				$Inventory->image = $imageName;
-			}
-		}
-		
-		if ($Inventory->fill(Input::all())->save())
-		{
-			return redirect($redirect);
-		}
+		return $this->updateRecord($this->model, $request, $id, $redirect);
 	}
 
 	/**
@@ -140,5 +109,152 @@ class InventoryController extends Controller {
 	{
 		//
 	}
+	
+	// ************** GET INVENTORY BY PRODUCT ID (BRAND OPTIONAL) *************** //
+	public function products($product, $product_id, $brand = null, $brand_id = null)
+	{
+		Session::put('lang','EN');
+		return $this->productsBlade($product, $product_id, $brand, $brand_id);
+	}
+	
+	public function produits($product, $product_id, $brand, $brand_id)
+	{
+		Session::put('lang','FR');
+		return $this->productsBlade($product, $product_id, $brand, $brand_id);
+	}
+	
+	public function productsBlade($product, $product_id, $brand, $brand_id)
+	{ 
+		$Product = Product::findOrFail($product_id);
+		
+		$ProductBrands = BrandProduct::with('Brand')
+			->where('product_id', $product_id)
+			->get();
+		
+		$InventoryItems = Inventory::getInventoryItemsByProductId($product_id, $brand_id);
+			
+		$url_ol = languages(PRODUCTS_FR, PRODUCTS) . '/' .  
+		          fixSegment($Product->product_fr, $Product->product) . '/' .
+				  $Product->id;
 
+		$brandurl = languages(PRODUCTS, PRODUCTS_FR) . '/' .
+			        fixSegment($Product->product, $Product->product_fr) . '/' .
+					$product_id . '/' . 
+					languages('brand/', 'marque/');
+		
+		return view('inventory/inventory')			
+			->with('description', $Product->description)
+			->with('keywords', $Product->keywords)
+			->with('urlol', $url_ol)
+			->with('brandurl', $brandurl)
+			->with('Product', $Product)
+			->with('ProductBrands', $ProductBrands)
+			->with('InventoryItems', $InventoryItems);
+	}
+	// ******************** GET INVENTORY BY PRODUCT ID ******************** //
+
+	// ******************** GET INVENTORY BY PRODUCT AND TYPE ID ******************** //
+	public function typesen($product_name, $type_name, $product_id, $type_id, $brand = null, $brand_id = null)
+	{
+		Session::put('lang','EN');
+		return $this->typesBlade($product_name, $type_name, $product_id, $type_id, $brand, $brand_id);
+	}
+	
+	public function typesfr($product_name, $type_name, $product_id, $type_id, $brand = null, $brand_id = null)
+	{
+		Session::put('lang','FR');
+		return $this->typesBlade($product_name, $type_name, $product_id, $type_id, $brand, $brand_id);
+	}
+	
+	public function typesBlade($product_name, $type_name, $product_id, $type_id, $brand, $brand_id)
+	{
+		$Product = Product::findOrFail($product_id);
+		
+		$Type = Type::findOrFail($type_id);
+		
+		$ProductBrands = BrandProduct::with('Brand')
+			->where('product_id', $product_id)
+			->get();
+		
+		$InventoryItems = Inventory::getInventoryItemsByProductAndTypeId($product_id, $type_id, $brand_id);
+			
+		$url_ol = languages('produits/', 'products/') . 
+				  fixSegment($Product->product_fr, $Product->product)  . '/' .
+				  fixSegment($Type->type_fr, $Type->type) . '/' . 
+				  $Product->id  . '/' .
+				  $Type->id;
+		
+		$brandurl = languages(PRODUCTS, PRODUCTS_FR) . '/' .
+			        fixSegment($Product->product, $Product->product_fr) . '/' .
+					fixSegment($Type->type, $Type->type_fr) . '/' .
+					$product_id . '/' .
+					$type_id . '/' .
+					languages('brand/', 'marque/');
+			
+		return view('inventory/inventory')
+			->with('description',$Product->description)
+			->with('keywords',$Product->keywords)
+			->with('urlol', $url_ol)	
+			->with('brandurl', $brandurl)			
+			->with('Product',$Product)
+			->with('Type',$Type)
+			->with('ProductBrands', $ProductBrands)
+			->with('InventoryItems', $InventoryItems);
+	}
+	// ******************** GET INVENTORY BY PRODUCT AND TYPE ID ******************** //
+	
+	// produits/marque/{product}/{product_id}/{brand}/{brand_id}/
+	/*
+	public function brandproductsen($product, $brand, $product_id, $brand_id)
+	{
+		if ($brand_id == '0')
+		{
+			return $this->products($product, $product_id);
+		}
+		
+		Session::put('lang','EN');
+		return $this->brandproductsblade($product_id, $brand_id);
+	}
+	
+	public function brandproductsfr($product, $brand, $product_id, $brand_id)
+	{		
+		if ($brand_id == '0')
+		{
+			return $this->produits($product, $product_id);
+		}
+		
+		Session::put('lang','FR');
+		return $this->brandproductsblade($product_id, $brand_id);
+	}	
+	
+	public function brandproductsblade($product_id, $brand_id)
+	{
+		$Product = Product::findOrFail($product_id);
+		$Brand = Brand::findOrFail($brand_id);
+		$ProductBrands = BrandProduct::with('Brand')->where('product_id', $product_id)->get();
+		$InventoryItems = Inventory::getInventoryItemsByProductAndBrandId($product_id, $brand_id);
+		
+		$url_ol = languages(PRODUCTS_FR, PRODUCTS) . '/' . 
+				  languages('marque', 'brand') . '/' . 		
+		          fixSegment($Product->product_fr, $Product->product) . '/' .				  
+				  fixSegment($Brand->brand) . '/' .
+				  $product_id . '/' .
+				  $brand_id;
+			
+		// PRODUCTS/product/brand/product_id/brand_id
+		$brandurl = languages(PRODUCTS, PRODUCTS_FR) . '/' .
+					languages('brand', 'marque') . '/' .
+			        fixSegment($Product->product, $Product->product_fr) . '/';
+					
+		return view('inventory/inventory')
+			->with('description', $Product->description)
+			->with('keywords', $Product->keywords)
+			->with('urlol', $url_ol)
+			->with('brandurl', $brandurl)
+			->with('Product', $Product)
+			->with('Brand', $Brand)
+			->with('ProductBrands', $ProductBrands)
+			->with('InventoryItems', $InventoryItems);		
+	}
+	*/
 }

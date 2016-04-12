@@ -47,23 +47,10 @@ class BrandProductController extends Controller {
 	 */
 	public function create($brand_id)
 	{
-		$sql = "SELECT products.* FROM products ";
-		$sql .= "LEFT JOIN brand_products ";
-		$sql .= "ON products.id=brand_products.product_id AND ";
-		$sql .= "brand_products.brand_id=" . $brand_id . " "; 
-		$sql .= "WHERE brand_products.id IS NULL";
-
-		$products = (array)DB::select($sql);
-		
-		foreach($products as &$product)
-		{		
-			$product = (array)$product;
-		}
-		
 		return view('admin/brandproducts/addbrandproduct')
 			->with('referer', $_SERVER['HTTP_REFERER'])
 			->with('brand', Brand::where('id', $brand_id)->first())
-			->with('products', $products);
+			->with('Products', Product::nonBrandProducts($brand_id));
 	}
 
 	/**
@@ -73,10 +60,8 @@ class BrandProductController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		if (BrandProduct::create($request->all()))
-			echo '1';
-		else
-			echo '0';
+		BrandProduct::create($request->all());
+		return redirect('admin/brands/' . $request->get('brand_id') . '/products');
 	}
 
 	/**

@@ -66,9 +66,6 @@
 					$('#imagename').html($(this)[0].files[0].name);
 					
 				});
-				
-				
-				//$(document).ready(function(){$('#ajaxform').ajaxForm(function(response){if (response == '1') window.location = 'admin/brands'; else alert('There was a problem');}); }); 
 			</script> 			
 			
 @endsection

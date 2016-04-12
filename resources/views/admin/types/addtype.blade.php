@@ -45,16 +45,5 @@
 				</div>
 					
 			{!! Form::close() !!}
-	
-			<script> 
-				$(document).ready(function(){ 
-					$('#ajaxform').ajaxForm(function(response){ 
-						if (response == '1')
-							window.location = '{{ $referer }}';
-						else
-							alert('There was a problem');
-					}); 
-				}); 
-			</script> 	
 
 @endsection

@@ -40,15 +40,4 @@
 					
 			{!! Form::close() !!}
 	
-			<script> 
-				$(document).ready(function(){ 
-					$('#ajaxform').ajaxForm(function(response){ 
-						if (response == '1')
-							window.location = 'admin/products';
-						else
-							alert('There was a problem');
-					}); 
-				}); 
-			</script> 	
-
 @endsection
