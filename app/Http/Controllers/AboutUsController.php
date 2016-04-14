@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use \App\Models\Team;
+use \App\Models\Artist;
+use \App\Models\Boutique;
+use \App\Models\Professional;
+use \App\Models\Restaurant;
+use \App\Models\Testimonial;
 
 use Session;
 
@@ -104,9 +109,10 @@ class AboutUsController extends Controller {
 	public function aboutusblade()
 	{
 		return view('aboutus/aboutus')
-			->with('description','')
-			->with('keywords','')
-			->with('urlol', languages(ABOUTUS_FR, ABOUTUS));		
+			->with('title', languages(ABOUTUS, ABOUTUS_FR))
+			->with('description', '')
+			->with('keywords', '')
+			->with('urlol', languages(ABOUTUSURL_FR, ABOUTUSURL));		
 	}	
 	// ****************************** ABOUT US ****************************** //
 
@@ -126,6 +132,7 @@ class AboutUsController extends Controller {
 	public function cultureblade()
 	{
 		return view('aboutus/culture')
+			->with('title', languages(ABOUTUS, ABOUTUS_FR))
 			->with('description','')
 			->with('keywords','')
 			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/culture');
@@ -133,24 +140,35 @@ class AboutUsController extends Controller {
 	// ****************************** CULTURE ****************************** //
 	
 	// ****************************** EXPERIENCE ****************************** //
-		public function experience()
-	{
+	public function experience()
+	{	
 		Session::put('lang','EN');
-		return $this->experienceblade();		
+		return $this->experienceblade(1);		
 	}
 
 	public function experiencefr()
 	{
 		Session::put('lang','FR');
-		return $this->experienceblade();		
+		return $this->experienceblade(0);		
 	}
 	
-	public function experienceblade()
+	public function experienceblade($language)
 	{
+		$Testimonials = Testimonial::where('language', $language)
+			->where('active', 1)
+			->get();
+			
 		return view('aboutus/experience')
+			->with('title', languages(ABOUTUS, ABOUTUS_FR))
 			->with('description','')
 			->with('keywords','')
-			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/culture');
+			->with('urlol', languages(EXPERIENCEURL_FR, EXPERIENCEURL))
+			->with('Artists', Artist::where('active', 1)->get())
+			->with('Boutiques', Boutique::where('active', 1)->get())
+			->with('Professionals', Professional::where('active', 1)->get())
+			->with('Restaurants', Restaurant::where('active', 1)->get())
+			->with('Testimonials', $Testimonials);
+			
 	}	
 	// ****************************** EXPERIENCE ****************************** //
 	
@@ -170,9 +188,10 @@ class AboutUsController extends Controller {
 	public function teamblade()
 	{
 		return view('aboutus/team')
+			->with('title', languages(ABOUTUS, ABOUTUS_FR))
 			->with('description','')
 			->with('keywords','')
-			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/' . languages(TEAM_FR, TEAM))
+			->with('urlol', languages(TEAMURL_FR, TEAMURL))
 			->with('Members', Team::where('active', 1)->get());
 	}	
 	// ****************************** TEAM ****************************** //	
@@ -193,10 +212,10 @@ class AboutUsController extends Controller {
 	public function servicesblade()
 	{
 		return view('aboutus/services')
+			->with('title', languages(ABOUTUS, ABOUTUS_FR))
 			->with('description','')
 			->with('keywords','')
-			->with('urlol', languages(ABOUTUS_FR, ABOUTUS) . '/' . 
-			                languages(STUDIOSRERVICES_FR, STUDIOSRERVICES));
+			->with('urlol', languages(STUDIOSRERVICESURL_FR, STUDIOSRERVICESURL));
 	}	
 	// ****************************** STUDIO AND SERVICES ****************************** //	
 }

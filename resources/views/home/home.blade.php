@@ -47,7 +47,7 @@
 				var slideNo = 0;
 				var noOfSlides = $('#slider').find('img').size();				
 				var interval = setInterval(function(){nextSlide();}, 5000);				
-				var animationSpeed = 3000;
+				var animationSpeed = 2000;
 				function nextSlide()
 				{
 					var oldSlideNo = slideNo;
@@ -80,7 +80,7 @@
 				<img id="announcementsicon" src="images/icon_announcements.png" />
 				<div style="float:left; margin-left:40px;">
 					<p>Graham Loudspeakers - unique hand-made… keeping the BBC loudspeaker tradition alive.</p>
-					<a href="{{ languages(ANNOUNCEMENTS, ANNOUNCEMENTS_FR) }}">{{ languages('SEE ALL ANNOUNCEMENTS', 'VOIR TOUS LES ANNONCES') }}</a>
+					<a href="{{ languages(ANNOUNCEMENTSURL, ANNOUNCEMENTSURL_FR) }}">{{ languages('SEE ALL ANNOUNCEMENTS', 'VOIR TOUS LES ANNONCES') }}</a>
 				</div>
 			</section>
 			

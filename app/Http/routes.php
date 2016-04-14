@@ -41,9 +41,15 @@ Route::get('admin/editorials/updateCurrent/{id}', 'EditorialController@updateCur
 
 Route::resource('admin/team', 'TeamController');
 
+Route::resource('admin/artists', 'ArtistController');
+Route::resource('admin/boutiques', 'BoutiqueController');
+Route::resource('admin/professionals', 'ProfessionalController');
+Route::resource('admin/restaurants', 'RestaurantController');
+
+Route::resource('admin/testimonials', 'TestimonialController');
+
 Route::resource('admin', 'AdminController');
 // ****************************** ADMIN ****************************** //
-
 
 // ****************************** HOME ****************************** //
 Route::get('/', 'HomeController@home');
@@ -52,44 +58,47 @@ Route::get('acceuil', 'HomeController@acceuil');
 // ****************************** HOME ****************************** //
 
 // ****************************** ABOUT US ****************************** //
-Route::get(ABOUTUS, 'AboutUsController@aboutus');
-Route::get(ABOUTUS_FR, 'AboutUsController@aboutusfr');
+Route::get(ABOUTUSURL, 'AboutUsController@aboutus');
+Route::get(ABOUTUSURL_FR, 'AboutUsController@aboutusfr');
 
-Route::get(ABOUTUS . '/' . CULTURE, 'AboutUsController@culture');
-Route::get(ABOUTUS_FR . '/' . CULTURE, 'AboutUsController@culturefr');
+Route::get(CULTUREURL, 'AboutUsController@culture');
+Route::get(CULTUREURL_FR, 'AboutUsController@culturefr');
 
-Route::get(ABOUTUS . '/' . EXPERIENCE, 'AboutUsController@experience');
-Route::get(ABOUTUS_FR . '/' . replaceAccents(EXPERIENCE_FR), 'AboutUsController@experiencefr');
+Route::get(EXPERIENCEURL, 'AboutUsController@experience');
+Route::get(EXPERIENCEURL_FR, 'AboutUsController@experiencefr');
 
-Route::get(ABOUTUS . '/' . STUDIOSRERVICES, 'AboutUsController@services');
-Route::get(ABOUTUS_FR . '/' . replaceAccents(STUDIOSRERVICES_FR), 'AboutUsController@servicesfr');
+Route::get(STUDIOSRERVICESURL, 'AboutUsController@services');
+Route::get(STUDIOSRERVICESURL_FR, 'AboutUsController@servicesfr');
 
-Route::get(ABOUTUS . '/' . TEAM, 'AboutUsController@team');
-Route::get(ABOUTUS_FR . '/' . replaceAccents(TEAM_FR), 'AboutUsController@teamfr');
+Route::get(TEAMURL, 'AboutUsController@team');
+Route::get(TEAMURL_FR, 'AboutUsController@teamfr');
 // ****************************** ABOUT US ****************************** //
 
 // ****************************** JOURNAL ****************************** //
 Route::get(JOURNAL, 'JournalController@journal');
 Route::get(JOURNAL_FR, 'JournalController@journalfr');
 
-Route::get(ANNOUNCEMENTS, 'AnnouncementController@announcements');
-Route::get(replaceAccents(ANNOUNCEMENTS_FR), 'AnnouncementController@announcementsfr');
+Route::get(ANNOUNCEMENTSURL, 'AnnouncementController@announcements');
+Route::get(ANNOUNCEMENTSURL_FR, 'AnnouncementController@announcementsfr');
 
-Route::get(rtrim(ANNOUNCEMENTS, 's') . '/{id}', 'AnnouncementController@announcement');
-Route::get(rtrim(replaceAccents(ANNOUNCEMENTS_FR), 's') . '/{id}', 'AnnouncementController@announcementfr');
+Route::get('journal/announcement/{id}', 'AnnouncementController@announcement');
+Route::get('journal/annoncement/{id}', 'AnnouncementController@announcementfr');
 
-Route::get(EDITORIALS, 'EditorialController@editorials');
-Route::get(replaceAccents(EDITORIALS_FR), 'EditorialController@editorialsfr');
+Route::get(EDITORIALSURL, 'EditorialController@editorials');
+Route::get(EDITORIALSURL_FR, 'EditorialController@editorialsfr');
 
 Route::get(rtrim(EDITORIALS, 's') . '/{id}', 'EditorialController@editorial');
 Route::get(rtrim(replaceAccents(EDITORIALS_FR), 's') . '/{id}', 'EditorialController@editorialfr');
 
-Route::get(EVENTS, 'EventController@events');
-Route::get(replaceAccents(EVENTS_FR), 'EventController@eventsfr');
+Route::get(EVENTSURL, 'EventController@events');
+Route::get(EVENTSURL_FR, 'EventController@eventsfr');
 
 Route::get(rtrim(EVENTS, 's') . '/{id}', 'EventController@event');
 Route::get(rtrim(replaceAccents(EVENTS_FR), 's') . '/{id}', 'EventController@eventfr');
 // ****************************** JOURNAL ****************************** //
+
+Route::get('testimonials/addtestimonial', 'TestimonialController@addtestimonialen');
+Route::get('temoignages/ajoutetemoignage', 'TestimonialController@addtestimonialfr');
 
 // ****************************** BRANDS ****************************** //
 Route::get('brands', 'BrandController@brands');
@@ -114,7 +123,6 @@ Route::get('produits/{product}/{product_id}/marque/{brand}/{brand_id}', 'Invento
 
 Route::get('products/{product}/{type}/{product_id}/{type_id}/brand/{brand}/{brand_id}', 'InventoryController@typesen');
 Route::get('produits/{product}/{type}/{product_id}/{type_id}/marque/{brand}/{brand_id}', 'InventoryController@typesfr');
-
 // ****************************** PRODUCTS ****************************** //
 
 // ****************************** TEST ****************************** //

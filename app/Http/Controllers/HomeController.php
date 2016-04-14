@@ -30,7 +30,8 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home/home')			
+		return view('home/home')
+			->with('title', languages(HOME, HOME_FR))		
 			->with('description','')
 			->with('keywords','')
 			->with('urlol', $this->urlol)

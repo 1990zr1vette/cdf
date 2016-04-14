@@ -2,6 +2,8 @@
 
 @section('main')
 
+			<div class="spacer20"></div>
+
 			<h3>{{ $Brand->brand }} - {{ languages($Product->product, $Product->product_fr) }}</h3>
 
 			<div class="spacer20"></div>
@@ -20,5 +22,7 @@
 			</div>
 			<div class="spacer10"></div>
 @endforeach	
+			
+			<div class="spacer20"></div>
 			
 @endsection

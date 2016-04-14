@@ -111,6 +111,7 @@ class EventController extends Controller {
 				  languages(rtrim(EVENTS, 's'), rtrim(EVENTS_FR, 's')) . $id;
 		
 		return view('events/event')
+			->with('title', languages(EVENTS, EVENTS_FR))
 			->with('description', '')
 			->with('keywords', '')
 			->with('urlol', $url_ol)	
@@ -137,6 +138,7 @@ class EventController extends Controller {
 				  languages(replaceAccents(EVENTS_FR), EVENTS) . '/';
 		
 		return view('events/events')
+			->with('title', languages(EVENTS, EVENTS_FR))
 			->with('description', '')
 			->with('keywords', '')
 			->with('urlol', $url_ol)	

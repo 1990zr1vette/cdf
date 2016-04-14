@@ -5,7 +5,7 @@
 html, body
 {
 	width:100%;
-	overflow-x:hidden;
+	-overflow-x:hidden;
 	margin:0;
 	padding:0;
 	font-family:Lato;
@@ -33,7 +33,7 @@ main
 
 footer
 {
-	height:500px;
+	height:520px;
 	width:100%;
 	position:absolute;
 	background:rgba(0, 0, 0, 0) url("../images/bg_footer.jpg") repeat-x scroll center top;
@@ -756,87 +756,17 @@ span.overlay
 	-font-size:24px;
 }
 
-.studioservice, .experience
-{
-	min-height:100px; 
-	width:96%; 
-	margin:0 auto; 
-	background-color:#fff; 
-	border:1px solid #cfcfcf; 
-	border-radius:15px;	
-	overflow:hidden;
-}
-
-.experience
-{
-	width:92%; 
-}
-
-.experienceleft, .experienceright
-{
-	position:relative;
-}
-
-.studioservice img, .experienceleft img, .experienceright img
-{
-	height:68px; 
-	width:68px; 
-	float:left; 
-	margin-left:80px;
-}
-
-.studioserviceleft, .experienceleft
-{
-	width:50%;
-	float:left; 
-	position:relative;
-}
-
-.studioserviceright, .experienceright
-{
-	width:calc(50% - 20px); 
-	width:50%;
-	float:left; 
-	position:relative;
-}
-
-.studioserviceinfo, .experienceinfo
-{
-	float:left; 
-	width:calc(100% - 110px); 
-	margin-left:80px;
-}
-
-.studioserviceinfo div, .experienceinfo div
-{
-	height:25px;
-	line-height:25px;
-	color:rgb(231, 147, 26);
-}
-
-.studioserviceinfo div span, .experienceinfo div span
-{
-	color:rgb(231, 147, 26);
-	font-size:20px;
-	padding-right:5px;
-}
-
-.studioserviceinfo div a:hover, .experienceinfo div a:hover
-{
-	text-decoration:underline;
-}
-
 #findus
 {
-	display:none; 
 	position:absolute; 
-	left:5%; 
-	min-height:100px; 
-	width:90%; 
+	left:calc((100% - 700px) / 2); 
+	height:500px; 
+	width:700px; 
 	background-color:#fff; 
 	z-index:9999999;	
 	border:1px solid #cfcfcf;
 	border-radius:15px;
+	opacity:0;
 }
 	
 div.close
@@ -1049,5 +979,216 @@ ul.dropdown li:hover
 	height:50px; 
 	width:100%; 
 	text-align:center;
+}
+
+.experience
+{
+	width:92%;
+	margin:0 auto;
+	border:1px solid #cfcfcf;
+	border-radius:15px;
+	background-color:#fff;
+	overflow:hidden;
+}
+
+.experiencecolumn
+{
+	width:calc(50% - 3px);
+	float:left;
+	margin-right:1px;
+	position:relative;
+}
+
+.experiencetitle, .studioservicetitle
+{
+	height:68px;
+	text-align:center;
+}
+
+.experiencetitle span, .studioservicetitle span
+{
+	text-transform:uppercase;
+	font-size:20px;
+	font-weight:600;
+}
+
+.experiencetitle img, .studioservicetitle img
+{
+	height:68px; 
+	width:68px; 
+}
+
+.experienceinfo, .studioserviceinfo
+{
+	color:rgb(231, 147, 26);
+}
+
+.experienceinfo div, .studioserviceinfo div
+{
+	height:30px;
+	line-height:30px;
+	text-align:center;
+}
+
+.experienceinfo span, .studioserviceinfo span
+{
+	padding-left:4px;
+	padding-right:4px;
+}
+
+.experienceinfo a:hover, .studioserviceinfo a:hover
+{
+	text-decoration:underline;
+	color:rgb(231, 147, 26);
+}
+
+
+.studioservice
+{
+	min-height:100px; 
+	width:96%; 
+	margin:0 auto; 
+	background-color:#fff; 
+	border:1px solid #cfcfcf; 
+	border-radius:15px;	
+	overflow:hidden;
+}
+
+
+
+.studioserviceleft
+{
+	width:50%;
+	float:left; 
+	position:relative;
+}
+
+.studioserviceright
+{
+	width:calc(50% - 20px); 
+	width:50%;
+	float:left; 
+	position:relative;
+}
+
+
+
+.studioserviceinfo div a:hover
+{
+	text-decoration:underline;
+}
+
+.testimonials
+{
+	height:200px;
+	width:92%;
+	margin:0 auto;
+	border:1px solid #cfcfcf;
+	border-radius:15px;
+	background-color:#fff;
+	margin-bottom:20px;
+}
+
+.testimonial-column
+{
+	width:50%;
+	float:left;
+}
+
+.testimonial-column span
+{
+	display:inline-block;
+	padding-left:20px;
+	padding-right:20px;
+	overflow:hidden;
+	white-space:pre-wrap;
+}
+
+.form80
+{
+	width:80%;
+	margin:0 auto;
+	background-color:#fff;
+	border:1px solid #cfcfcf;
+	border-radius:15px;
+}
+
+div.formrow
+{
+	height:50px;
+	width:100%;
+	line-height:50px;
+}
+
+div.formrow label
+{
+	display:inline-block;
+	width:15%;
+	text-align:right;
+	margin-right:10px;
+}
+
+div.formrow input
+{
+	height:25px;
+	width:80%;
+}
+
+div.formtextarearow
+{
+	height:500px;
+	width:100%;
+}
+
+div.formtextarearow label
+{
+	display:inline-block;
+	width:15%;
+    margin-right:10px;
+    text-align:right;
+	vertical-align:top;
+}
+
+div.formtextarearow textarea
+{
+	height:90%;
+	width:80%;
+}
+
+div.button
+{
+	height:50px;
+	width:100%;
+	text-align:center;
+}
+
+#addtestimonialform
+{
+	position:absolute;
+	display:none;
+	background-color:rgb(220,220,220);
+}
+
+h1.unica, h2.unica, h3.unica, h4.unica 
+{
+    font-family: "Unica One","Oswald","Arial Narrow",sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+label.black
+{
+	color:#000;
+}
+
+input.black, textarea.black
+{
+	border:1px solid #000;
+}
+
+button.black
+{
+	background-color:#000;
+	border:none;
 }
 

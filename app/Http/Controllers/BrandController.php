@@ -108,6 +108,7 @@ class BrandController extends Controller {
 	public function brandsBlade()
 	{
 		return view('brands/brands')
+			->with('title', languages(BRANDS, BRANDS_FR))
 			->with('description','')
 			->with('keywords','')
 			->with('urlol', languages(BRANDS_FR, BRANDS));
@@ -139,6 +140,7 @@ class BrandController extends Controller {
 			$Brand->id;
 							
 		return view('brands/brand')
+			->with('title', languages(BRANDS, BRANDS_FR))
 			->with('description','')
 			->with('keywords','')
 			->with('urlol', $urlol)
@@ -178,6 +180,7 @@ class BrandController extends Controller {
 			$Product->id;
 		
 		return view('brands/brand_product')
+			->with('title', languages(BRANDS, BRANDS_FR))
 			->with('description', $Product->description)
 			->with('keywords', $Product->keywords)
 			->with('urlol', $urlol)

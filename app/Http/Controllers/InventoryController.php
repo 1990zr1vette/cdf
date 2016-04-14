@@ -117,7 +117,7 @@ class InventoryController extends Controller {
 		return $this->productsBlade($product, $product_id, $brand, $brand_id);
 	}
 	
-	public function produits($product, $product_id, $brand, $brand_id)
+	public function produits($product, $product_id, $brand = null, $brand_id = null)
 	{
 		Session::put('lang','FR');
 		return $this->productsBlade($product, $product_id, $brand, $brand_id);
@@ -142,7 +142,8 @@ class InventoryController extends Controller {
 					$product_id . '/' . 
 					languages('brand/', 'marque/');
 		
-		return view('inventory/inventory')			
+		return view('inventory/inventory')		
+			->with('title', languages($Product->product, $Product->product_fr))		
 			->with('description', $Product->description)
 			->with('keywords', $Product->keywords)
 			->with('urlol', $url_ol)
@@ -192,6 +193,7 @@ class InventoryController extends Controller {
 					languages('brand/', 'marque/');
 			
 		return view('inventory/inventory')
+			->with('title', languages($Product->product . ' ' . $Type->type, $Product->product_fr . ' ' . $Type->type_fr))		
 			->with('description',$Product->description)
 			->with('keywords',$Product->keywords)
 			->with('urlol', $url_ol)	
@@ -202,59 +204,5 @@ class InventoryController extends Controller {
 			->with('InventoryItems', $InventoryItems);
 	}
 	// ******************** GET INVENTORY BY PRODUCT AND TYPE ID ******************** //
-	
-	// produits/marque/{product}/{product_id}/{brand}/{brand_id}/
-	/*
-	public function brandproductsen($product, $brand, $product_id, $brand_id)
-	{
-		if ($brand_id == '0')
-		{
-			return $this->products($product, $product_id);
-		}
-		
-		Session::put('lang','EN');
-		return $this->brandproductsblade($product_id, $brand_id);
-	}
-	
-	public function brandproductsfr($product, $brand, $product_id, $brand_id)
-	{		
-		if ($brand_id == '0')
-		{
-			return $this->produits($product, $product_id);
-		}
-		
-		Session::put('lang','FR');
-		return $this->brandproductsblade($product_id, $brand_id);
-	}	
-	
-	public function brandproductsblade($product_id, $brand_id)
-	{
-		$Product = Product::findOrFail($product_id);
-		$Brand = Brand::findOrFail($brand_id);
-		$ProductBrands = BrandProduct::with('Brand')->where('product_id', $product_id)->get();
-		$InventoryItems = Inventory::getInventoryItemsByProductAndBrandId($product_id, $brand_id);
-		
-		$url_ol = languages(PRODUCTS_FR, PRODUCTS) . '/' . 
-				  languages('marque', 'brand') . '/' . 		
-		          fixSegment($Product->product_fr, $Product->product) . '/' .				  
-				  fixSegment($Brand->brand) . '/' .
-				  $product_id . '/' .
-				  $brand_id;
-			
-		// PRODUCTS/product/brand/product_id/brand_id
-		$brandurl = languages(PRODUCTS, PRODUCTS_FR) . '/' .
-					languages('brand', 'marque') . '/' .
-			        fixSegment($Product->product, $Product->product_fr) . '/';
-					
-		return view('inventory/inventory')
-			->with('description', $Product->description)
-			->with('keywords', $Product->keywords)
-			->with('urlol', $url_ol)
-			->with('brandurl', $brandurl)
-			->with('Product', $Product)
-			->with('Brand', $Brand)
-			->with('ProductBrands', $ProductBrands)
-			->with('InventoryItems', $InventoryItems);		
-	}
-	*/
+
 }

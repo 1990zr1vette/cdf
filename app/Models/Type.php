@@ -8,8 +8,18 @@ use \App\Models\Inventory;
 class Type extends Model 
 {
 
-	protected $fillable = array('product_id', 'type', 'type_fr', 'keywords', 'keywords_fr', 'description', 'description_fr', 'active');
+	protected $fillable = array(
+		'product_id', 
+		'type', 
+		'type_fr', 
+		'keywords', 
+		'keywords_fr', 
+		'description', 
+		'description_fr', 
+		'active');
 
+	public $href;
+	
     public function InventoryItems()
     {
         return $this->hasMany('\App\Models\Inventory');

@@ -50,6 +50,21 @@
 					<li>
 						<a href="admin/team">TEAM</a>
 					</li>
+					<li>
+						<a href="admin/artists">ARTISTS</a>
+					</li>
+					<li>
+						<a href="admin/boutiques">BOUTIQUES</a>
+					</li>
+					<li>
+						<a href="admin/professionals">PROFESSIONALS</a>
+					</li>
+					<li>
+						<a href="admin/restaurants">RESTAURANTS</a>
+					</li>
+					<li>
+						<a href="admin/testimonials">TESTIMONIALS</a>
+					</li>
 				</ul>
 			</nav>
 		</header>

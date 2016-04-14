@@ -1,6 +1,7 @@
 <?php
 use \App\Models\Product;
-use \App\Models\Type;
+$Products = Product::getProducts();
+//$Products = Product::where('active',1)->get();
 ?>
 <!doctype html>
 
@@ -9,7 +10,7 @@ use \App\Models\Type;
 	<head>
 		<meta charset="utf-8">
 
-		<title>Coup de Foudre</title>
+		<title>CDF - {{ ucfirst($title) }}</title>
 		
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 		
@@ -40,36 +41,27 @@ use \App\Models\Type;
 			<nav id="topnav">
 				<ul>
 					<li class="topli">
-						<a href="{{ languages(HOME, HOME_FR) }}">{{ languages(HOME, HOME_FR) }}</a>
+						<a class="topa" href="{{ languages(HOME, HOME_FR) }}">{{ languages(HOME, HOME_FR) }}</a>
 					</li>
 					<li class="topli">
-						<a href="{{ languages(BRANDS, BRANDS_FR) }}">{{ languages(BRANDS, BRANDS_FR) }}</a>
+						<a class="topa" href="{{ languages(BRANDS, BRANDS_FR) }}">{{ languages(BRANDS, BRANDS_FR) }}</a>
 					</li>					
 					<li class="topli">
-						<a href="{{ languages(JOURNAL, JOURNAL_FR) }}">JOURNAL</a>
+						<a class="topa" href="{{ languages(JOURNAL, JOURNAL_FR) }}">journal</a>
 						<ul class="submenu">
 							<li>
-								<a href="{{ languages(ANNOUNCEMENTSURL, ANNOUNCEMENTSURL_FR) }}">
-									{{ languages(ANNOUNCEMENTS, ANNOUNCEMENTS_FR) }}
-								</a>
+								<a href="{{ languages(ANNOUNCEMENTSURL, ANNOUNCEMENTSURL_FR) }}">{{ languages(ANNOUNCEMENTS, ANNOUNCEMENTS_FR) }}</a>
 							</li>
 							<li>
-								<a href="{{ languages(EVENTSURL, EVENTSURL_FR) }}">
-									{{ languages(EVENTS, EVENTS_FR) }}
-								</a>
+								<a href="{{ languages(EVENTSURL, EVENTSURL_FR) }}">{{ languages(EVENTS, EVENTS_FR) }}</a>
 							</li>
 							<li>
-								<a href="{{ languages(EDITORIALSURL, EDITORIALSURL_FR) }}">
-									{{ languages(EDITORIALS, EDITORIALS_FR) }}
-								</a>
-							</li>							
-
+								<a href="{{ languages(EDITORIALSURL, EDITORIALSURL_FR) }}">{{ languages(EDITORIALS, EDITORIALS_FR) }}</a>
+							</li>
 						</ul>
 					</li>
 					<li class="topli">
-						<a href="{{ languages(ABOUTUS, ABOUTUS_FR) }}">
-							{{ languages('ABOUT US', 'À PROPOS DE NOUS') }}
-						</a>
+						<a class="topa" href="{{ languages(ABOUTUSURL, ABOUTUSURL_FR) }}">{{ languages(ABOUTUS, ABOUTUS_FR) }}</a>
 						<ul class="submenu">
 							<li>
 								<a href="{{ languages(CULTUREURL, CULTUREURL_FR) }}">
@@ -94,7 +86,7 @@ use \App\Models\Type;
 						</ul>
 					</li>
 					<li class="topli">
-						<a href="{{ languages(USED, USED_FR) }}">{{ languages('USED','UTILISÉ') }}</a>
+						<a class="topa" href="{{ languages(USED, USED_FR) }}">{{ languages('USED','UTILISÉ') }}</a>
 					</li>					
 					<li class="topli">
 						<a href="{{ $urlol }}">{{ languages('FRANCAIS','ENGLISH') }}</a>
@@ -113,20 +105,23 @@ use \App\Models\Type;
 			</div>
 			
 			<nav id="bottomnav">
-				<ul>
-				
-@foreach(Product::where('active',1)->get() as $Product)
+				<ul>				
+@foreach($Products as $Product)
 					<li class="bottomli">
-						<a href="products/{{ fixSegment($Product->product, $Product->product_fr) }}/{{ $Product->id }}">{{ languages($Product->product,$Product->product_fr) }}</a>
-						<ul class="submenu">
-@foreach($Product->ProductTypes as $ProductType)
-							<li>
-								<a href="products/{{ fixSegment($Product->product, $Product->product_fr) }}/{{ fixSegment($ProductType->type, $ProductType->type_fr) }}/{{ $Product->id }}/{{ $ProductType->id }}">{{ languages($ProductType->type,$ProductType->type_fr) }}</a>
-							</li>
+						<a href="{{ $Product->href }}">
+							{{ languages($Product->product,$Product->product_fr) }}
+						</a>
+							<ul class="submenu">
+@foreach ($Product->Types as $Type)
+								<li>
+									<a href="{{ $Type->href }}">
+										{{ languages($Type->type, $Type->type_fr) }}
+									</a>
+								</li>
 @endforeach
-						</ul>
+							</ul>						
 					</li>
-@endforeach
+@endforeach					
 				</ul>
 			</nav>
 		</header>
@@ -136,6 +131,13 @@ use \App\Models\Type;
 			$('.bottomli').css('width',(100 / $('.bottomli').size()) + '%');
 			$.each($('.submenu'),function(){$(this).css('width',$(this).parent().width());});			
 			$('.bottomli, .topli').hover(function(){$(this).find('.submenu').css('display','block');},function(){$(this).find('.submenu').css('display','none');});
+			
+			$.each($('.topa'),function(){
+				if ($(this).attr('href') == '{{ Request::segment(1) }}')
+				{
+					$(this).addClass('active');
+				}
+			});
 		</script>
 		
 		<main>
@@ -143,10 +145,12 @@ use \App\Models\Type;
 		</main>
 		
 		<footer style="color:#fff;">
-			<div class="spacer20"></div>
+			<div id="info" style="color:#fff;" class="spacer20"></div>
 			
 			<h2>
-				<a href="">Subscribe to our newsletter, stay connected to events and promotions reserved for our clients</a>
+				<a href="">
+					{{ languages("> Subscribe to our newsletter, stay connected to events and promotions reserved for our clients", "> Abonnez-vous à notre lettre d'information pour être tenu au courant de l'actualité, bénéficiez des offres et d'invitations à des évènements réservées à nos abonnés.") }}
+				</a>
 			</h2>
 			
 			<div class="spacer20"></div>
@@ -163,31 +167,31 @@ use \App\Models\Type;
 						<h3>Coup De Foudre</h3>
 						<span>
 							<a href="{{ languages(CULTUREURL, CULTUREURL_FR) }}">
-								Culture
+								{{ languages('Culture', 'Culture') }}
 							</a>
 						</span>
 						<span>
 							<a href="{{ languages(EXPERIENCEURL, EXPERIENCEURL_FR) }}">
-								Experience
+								{{ languages('Experience', 'Expérience') }}
 							</a>
 						</span>
 						<span>
 							<a href="{{ languages(STUDIOSRERVICESURL, STUDIOSRERVICESURL_FR) }}">
-								Studio & Services
+								{{ languages('Studio & Services', 'Studio et Services') }}
 							</a>
 						</span>
 						<span>
 							<a href="{{ languages(TEAMURL, TEAMURL_FR) }}">
-								Team
+								{{ languages('Team', 'Équipe') }}
 							</a>
 						</span>
 					</div>
 					
 					<div class="footercolumn">
-						<h3>Products</h3>
-@foreach(Product::where('active',1)->get() as $Product)
+						<h3>{{ languages('Products', 'Produits') }}</h3>
+@foreach($Products as $Product)
 						<span>
-							<a href="">
+							<a href="{{ $Product->href }}">
 								{{ languages($Product->product, $Product->product_fr) }}
 							</a>
 						</span>
@@ -211,15 +215,21 @@ use \App\Models\Type;
 							</a>						
 						</span>
 						<span></span>
-						<h3>Contact Us</h3>
+						<h3>{{ languages('Contact Us', 'Nous contacter') }}</h3>
 						<span>
-							<a href="">General Inquiry</a>
+							<a href="">
+								{{ languages('General Inquiry', 'Demande de renseignement') }}
+							</a>
 						</span>
 						<span>
-							<a href="">Submit a Review</a>
+							<a href="">
+								{{ languages('Submit a Review', 'Envoyer une critique') }}
+							</a>
 						</span>
 						<span>
-							<a href="">Book a Consultation</a>
+							<a href="">
+								{{ languages('Book a Consultation', 'Réserver une consultation') }}
+							</a>
 						</span>
 					</div>
 					<div class="footercolumn">
@@ -229,21 +239,21 @@ use \App\Models\Type;
 						<span>514-788-5066</span>						
 					</div>
 					<div class="footercolumn">
-						<h3>Store Hours</h3>
-                        <span>Monday</span>
-						<span>Closed</span>
+						<h3>{{ languages('Store Hours' , 'Heures d\'ouverture') }}</h3>
+                        <span>{{ languages('Monday' , 'Lundi') }}</span>
+						<span>{{ languages('Closed' , 'Fermé') }}</span>
 						<div class="spacer10"></div>
-						<span>Tuesday - Wednesday</span>
-						<span>11 am - 5 pm</span>
+						<span>{{ languages('Tuesday - Wednesday' , 'Mardi - Mercredi') }}</span>
+						<span>{{ languages('11 am - 5 pm' , '11h - 17h') }}</span>
 						<div class="spacer10"></div>
-						<span>Thursday - Friday</span>
-						<span>10 am - 8 pm</span>								
+						<span>{{ languages('Thursday - Friday' , 'Jeudi - Vendredi') }}</span>
+						<span>{{ languages('10 am - 8 pm' , '10h - 20h') }}</span>								
 						<div class="spacer10"></div>
-						<span>Saturday</span>
-						<span>10 am - 5 pm</span>
+						<span>{{ languages('Saturday' , 'Samedi') }}</span>
+						<span>{{ languages('10 am - 5 pm' , '10h - 17h') }}</span>
 						<div class="spacer10"></div>
-						<span>Sunday</span>
-						<span>12 pm - 5 pm</span>
+						<span>{{ languages('Sunday' , 'Dimanche') }}</span>
+						<span>{{ languages('12 pm - 5 pm' , '12h - 17h') }}</span>
 					</div>
 					<div class="footercolumn" style="text-align:right;">
 						<a target="_blank" href="https://www.facebook.com/coupdefoudre.montreal">
@@ -255,43 +265,22 @@ use \App\Models\Type;
 						<a target="_blank" href="https://instagram.com/cdfaudio/">
 							<img class="socialimg" src="images/social_instagram.png" />
 						</a>
+						<span>© 2016 CDFAudio</span>
 					</div>				
 					
 				</div>
 					
 			</div>
 		</footer>
-
-		<div id="findus">
-			<div class="close">
-				<span id="close">X</span>
-			</div>
-		</div>
 		
 		<script>
-		
-			$('#findusbutton').click(function(){
-				
-				$('#findus').css('top', $(document).scrollTop() + 100 );
-				
-				$('#findus').fadeIn();
-				
-			});
-
-			$('#close').click(function(){
-				
-				$('#findus').fadeOut();
-			});
-			
 			setFooter();
 			
 			function setFooter()
 			{
 				$('footer').css('top',$('main').offset().top + $('main').height());
 			}
-		</script>
-
-		
+		</script>		
 	</body>
 	
 </html>

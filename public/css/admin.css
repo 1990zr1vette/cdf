@@ -76,6 +76,7 @@ header nav ul li
 {
 	height:47px;
 	line-height:47px;
+	font-size:12px;
 	text-transform:uppercase;
 	background: rgba(0, 0, 0, 0) url("../images/sep-1.png") no-repeat scroll right center;
 }
