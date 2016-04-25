@@ -28,6 +28,34 @@
 				<div class="spacer10"></div>
 				
 				<div class="formrow">
+					{!! Form::label('keywords', 'KEYWORDS:') !!}
+					{!! Form::text('keywords') !!}
+				</div>
+				
+				<div class="spacer10"></div>
+				
+				<div class="formrow">
+					{!! Form::label('keywords_fr', 'KEYWORDS (FR):') !!}
+					{!! Form::text('keywords_fr') !!}
+				</div>
+				
+				<div class="spacer10"></div>				
+
+				<div class="formrow">
+					{!! Form::label('description', 'DESCRIPTION:') !!}
+					{!! Form::text('description') !!}
+				</div>
+
+				<div class="spacer10"></div>
+				
+				<div class="formrow">
+					{!! Form::label('description_fr', 'DESCRIPTION (FR):') !!}
+					{!! Form::text('description_fr') !!}
+				</div>
+
+				<div class="spacer10"></div>				
+				
+				<div class="formrow">
 					{!! Form::label('website', 'WEBSITE:') !!}
 					{!! Form::text('website') !!}
 				</div>

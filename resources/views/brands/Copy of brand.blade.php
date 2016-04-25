@@ -60,57 +60,39 @@ use \App\Models\BrandProduct;
 
 @foreach($BrandProducts as $BrandProduct)
 			<div>
-			
 				<h3>
 					<a href="brands/{{ fixSegment($Brand->brand) }}/{{ fixSegment($BrandProduct->Product->product, $BrandProduct->Product->product_fr) }}/{{ $Brand->id }}/{{ $BrandProduct->Product->id }}">
 						{{ languages($BrandProduct->Product->product, $BrandProduct->Product->product_fr) }}
 					</a>
 				</h3>
-				
 				<div class="spacer10"></div>			
-				
 @foreach($Brand->BrandInventoryItems()->where('product_id', $BrandProduct->Product->id)->get() as $InventoryItem)
-
 				<div class="item">
 					<div class="spacer20"></div>
-					<div style="height:180px; width:30%; float:left;" class="itemimage">
-						<img style="height:100%; width:96%; margin:0 auto;" src="images/{{ $InventoryItem->image }}" />
-					</div>
-					<div class="itemdetails" style="height:160px; overflow:hidden; width:70%; float:left;">
+					<span class="img">
+						<img src="images/{{ $InventoryItem->image }}" />
+					</span>	
+					<span class="info">
 						<h3><span>{{ $Brand->brand }} {{ $InventoryItem->model }}</span></h3>
-						<div class="itemdescription">{{ languages($InventoryItem->description, $InventoryItem->description_fr) }}</div>					
-					</div>					
-					<div class="spacer20" style="width:30%;"></div>
-					<div class="spacer40" style="width:70%;"></div>
+						<div class="spacer20"></div>
+						<div class="itemdescription">{{ languages($InventoryItem->description, $InventoryItem->description_fr) }}</div>
+					</span>
+					<div class="spacer30" style="border:1px solid blue;"></div>
 				</div>
-				
 				<div class="spacer20"></div>
-				
 @endforeach	
-
 			</div>
 @endforeach				
 				
 			<script>
-				$.each($('.item'),function(){
-					if ($(this).find('.itemdescription').height() > 130)
+				$.each($('.info'),function(){
+					
+					if ($(this).height() > 160)
 					{
-						var difference = $(this).find('.itemdescription').height() - 130;
-						$(this).find('.spacer40').html('<div data="' + difference + '" class="readmore">[+] MORE</div>');						
+						$(this).attr('data-height', $(this).height());
+						$(this).css('height', 160);
+						//$(this).parent().append('<div data="0" class="readmore">[+] MORE</div>');
 					}
-				});
-				
-				$('.readmore').click(function(){
-					
-					var item = $(this).parent().parent();
-					var itemheight = $(item).height();
-					
-					var difference = parseInt($(this).attr('data')) - 160;
-					
-					var itemdetails = $(item).find('.itemdetails');
-					
-					$(item).animate({height:itemheight + difference - 160});
-					$(itemdetails).animate({height:difference});
 					
 				});
 			</script>

@@ -8,7 +8,17 @@ use \App\Models\Product;
 class Brand extends Model 
 {
 
-	protected $fillable = array('brand', 'about', 'about_fr', 'image', 'website', 'active');
+	protected $fillable = array(
+		'brand', 
+		'about', 
+		'about_fr', 
+		'image', 
+		'website', 
+		'keywords', 
+		'keywords_fr', 
+		'description', 
+		'description_fr', 
+		'active');
 
     public function BrandProducts()
     {

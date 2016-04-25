@@ -17,6 +17,7 @@ class CreateArtistsTable extends Migration {
 			$table->increments('id');
 			$table->string('artist');
 			$table->string('website');
+			$table->tinyInteger('active')->default(1);
 			$table->timestamps();
 		});
 	}

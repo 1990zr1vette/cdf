@@ -12,7 +12,7 @@
 @foreach($products as $product)
 			<div class="productrow row60">
 				
-				<span class="">{{ $product['product'] }}</span>
+				<span class="title">{{ $product['product'] }}</span>
 				
 				<span class="button">
 					<a href="admin/products/{{ $product['id'] }}/types">

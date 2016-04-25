@@ -18,6 +18,7 @@ class CreateTeamTable extends Migration {
 			$table->string('first_name');
 			$table->string('last_name');
 			$table->string('position');
+			$table->string('position_fr');
 			$table->text('description');
 			$table->text('description_fr');
 			$table->string('image');

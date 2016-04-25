@@ -11,7 +11,7 @@
 				<input type="hidden" name="product_id" value="{{ $product->id }}" />
 				
 				<div class="formrow select">
-					<select name="type_id" required>
+					<select name="product_type_id" required>
 						<option value="">Choose {{ $product->product }} Type</option>
 @foreach($types as $type)
 						<option value="{{ $type->id }}">{{ $type->type }}</option>

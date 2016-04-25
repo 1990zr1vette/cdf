@@ -134,15 +134,17 @@ class BrandController extends Controller {
 		$BrandProducts = BrandProduct::where('active',1)
 			->where('brand_id', $id)
 			->get();
-		
+
+		$title = languages(BRANDS, BRANDS_FR) . ' ' . $Brand->brand;
+			
 		$urlol = languages(BRANDS_FR,BRANDS) . '/' . 
 			fixSegment($Brand->brand) . '/' . 
 			$Brand->id;
 							
 		return view('brands/brand')
-			->with('title', languages(BRANDS, BRANDS_FR))
-			->with('description','')
-			->with('keywords','')
+			->with('title', $title)
+			->with('description', $Brand->description)
+			->with('keywords', $Brand->keywords)
 			->with('urlol', $urlol)
 			->with('Brand', $Brand)
 			->with('BrandProducts', $BrandProducts);		
